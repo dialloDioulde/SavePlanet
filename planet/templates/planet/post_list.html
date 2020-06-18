@@ -13,7 +13,14 @@
             {{post.text|linebreaks|safe|truncatewords:100}}
             <a href="#">[Lire Plus]</a>
         </p>
-        <a href="#" class="badge badge-info"> {{post.category.name|capfirst}}</a>
+        <a href="{% url 'post-list' post.category.slug %}" class="badge badge-info"> {{post.category.name|capfirst}}</a>
+    </div>
+    {% empty %}
+    <div class="text-center">
+        <p class="display-1"> :-(</p>
+        <h3 class="mt-4">
+            Désolé, il n'y a pas de Catégorie correspondant à <small class="badge badge-info">{{category.name}}</small>
+        </h3>
     </div>
     {% endfor %}
 </div>
