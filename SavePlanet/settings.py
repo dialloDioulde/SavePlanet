@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'SavePlanet.urls'
-#
+
 
 TEMPLATES = [
     {
