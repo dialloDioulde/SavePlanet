@@ -3,6 +3,7 @@ from planet.models import Post, PostCategory, Comment
 
 post_category_all = PostCategory(name='all')
 
+# Renvoie la Catégorie et le nom des Posts
 def get_category_and_posts(category_name):
     # On filtre les Posts par leur statut de publication
     posts = Post.objects.filter(published = True)
@@ -22,3 +23,10 @@ def get_category_and_posts(category_name):
 
     posts = posts.order_by('-created_at')
     return category, posts
+
+
+# Renvoie juste la Catégorie des Posts
+def get_categories():
+    categories = list(PostCategory.objects.all().order_by('name'))
+    categories.insert(0, post_category_all)
+    return categories

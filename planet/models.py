@@ -7,6 +7,9 @@ from django.template.defaultfilters import slugify
 class PostCategory(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
     def slug(self):
         return slugify(self.name)
 
