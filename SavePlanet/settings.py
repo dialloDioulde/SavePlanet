@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'planet.apps.PlanetConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

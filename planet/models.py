@@ -34,7 +34,7 @@ class Comment(models.Model):
 
     STATUS_CHOICES = ((STATUS_VISIBLE, 'visible'), (STATUS_HIDDEN, 'hidden'), (STATUS_MODERATED, 'moderated'),)
 
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
     author_name = models.CharField(max_length=250)
     text = models.TextField()
     status = models.CharField(max_length=20, default=STATUS_VISIBLE, choices=STATUS_CHOICES)
