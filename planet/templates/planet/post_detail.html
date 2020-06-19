@@ -18,8 +18,19 @@
                class="badge badge-info">{{post.category.name|capfirst}}</a>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-3" id="comments">
             <h3>Commentaires</h3>
+
+            <!-- Confirmation de l'envoie d'un Commentaire à l'Utilisateur -->
+            {% if message %}
+            <div class="alert alert-success alert-dismissable fade show">
+                {{ message }}
+                <button class="close" type="button" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+            {% endif %}
+
             <ul class="list-unstyled">
                 {% for comment in comments %}
                 <li class="media">

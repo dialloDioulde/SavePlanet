@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from planet.models import *
 from planet import model_helpers, navigation
 from  planet.forms import CreateCommentForm
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def post_list(request, category_name = model_helpers.post_category_all.slug()):
 
 
 # Renvoie les details d'un Post
-def post_detail(request, post_id):
+def post_detail(request, post_id, message = ''):
     post = get_object_or_404(Post, pk=post_id) # On récupère le Post par son ID
 
     # On récupère que les Posts d'une même Catégorie ici
@@ -35,9 +36,19 @@ def post_detail(request, post_id):
             comment = comment_form.save(commit= False)
             comment.post = post
             comment.save()
+
+            args = [post.pk, ' Votre Commentaire a bien été Publié ! ']
+            return HttpResponseRedirect(reverse('post-detail-message', args = args) + '#comments')
         else:
             comment_form = CreateCommentForm()
 
     context = {'post' : post, 'navigation_items' : navigation.navigation_items(navigation.NAV_POSTS),
-               'posts_same_category' : posts_same_category, 'comments' : posts_comments, 'comment_form' : comment_form}
+               'posts_same_category' : posts_same_category, 'comments' : posts_comments,
+               'comment_form' : comment_form, 'message' : message }
     return render(request, 'planet/post_detail.html', context)
+
+
+def about(request):
+    context = { 'navigation_items' : navigation.navigation_items(navigation.NAV_ABOUT) }
+
+    return render(request, 'planet/about.html', context)
