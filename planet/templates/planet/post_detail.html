@@ -3,17 +3,33 @@
 {% block title %} {{post.title}} {% endblock %}
 
 {% block content %}
-<div class="col-sm-9">
-    <div class="mt-3">
-        <h2>{{post.title}}</h2>
-        <small>Posté le {{post.created_at}}</small>
-        <hr>
-        <p class="text-muted">
-             {{post.text|linebreaks|safe}}
-        </p>
-         <a href="{% url 'post-list' post.category.slug %}" class="badge badge-info">{{post.category.name|capfirst}}</a>
+<div class="row">
+    <div class="col-md-9">
+        <div class="mt-3">
+            <h2>{{post.title}}</h2>
+            <small>Posté le {{post.created_at}}</small>
+            <hr>
+            <p class="text-muted">
+                {{post.text|linebreaks|safe}}
+            </p>
+            <a href="{% url 'post-list' post.category.slug %}"
+               class="badge badge-info">{{post.category.name|capfirst}}</a>
+        </div>
     </div>
-</div>
 
+    <div class="col-md-3 mt-2">
+        <h5>Posts de même Catégories: </h5>
+        <ul class="list-group list-unstyled">
+            {% for post in posts_same_category %}
+            <li class="list-group-itm">
+                <a href="{% url 'post-detail' post.pk %}"> {{post.title|truncatewords:4}}</a>
+            </li>
+            {% empty %}
+            C'est le seul Post de la Catégorie {{post.title}} actuellement.
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
 
 {% endblock %}

@@ -3,44 +3,48 @@
 {% block title %} Posts {% endblock %}
 
 {% block content %}
-<div class="col-sm-9">
-    {% for post in posts %}
-    <div class="mb-4">
-        <!-- On affiche le Post dans son intégralité (details) en cliquant sur son titre -->
-        <h3><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a></h3>
-        <small>Posté le {{post.created_at}}</small>
-        <hr>
+<div class="row">
+    <div class="col-sm-9">
+        {% for post in posts %}
+        <div class="mb-4">
+            <!-- On affiche le Post dans son intégralité (details) en cliquant sur son titre -->
+            <h3><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a></h3>
+            <small>Posté le {{post.created_at}}</small>
+            <hr>
 
-        <p class="text-muted">
-            <!-- On affiche le Post dans son intégralité (details) en cliquant sur Lire Plus si le nombre de mots depasse 100 -->
-            {{post.text|linebreaks|safe|truncatewords:100}}
-            <a href="{% url 'post-detail' post.pk %}">[Lire Plus]</a>
-        </p>
+            <p class="text-muted">
+                <!-- On affiche le Post dans son intégralité (details) en cliquant sur Lire Plus si le nombre de mots depasse 100 -->
+                {{post.text|linebreaks|safe|truncatewords:100}}
+                <a href="{% url 'post-detail' post.pk %}">[Lire Plus]</a>
+            </p>
 
-        <!-- On affiche uniquement que les Posts correspondant à la Catégorie choisie -->
-        <a href="{% url 'post-list' post.category.slug %}" class="badge badge-info"> {{post.category.name|capfirst}}</a>
+            <!-- On affiche uniquement que les Posts correspondant à la Catégorie choisie -->
+            <a href="{% url 'post-list' post.category.slug %}" class="badge badge-info">
+                {{post.category.name|capfirst}}</a>
+        </div>
+
+        <!-- On affiche un message à l'utilisateur s'il entre une Catégorie qui n'existe pas -->
+        {% empty %}
+        <div class="text-center">
+            <p class="display-1"> :-(</p>
+            <h3 class="mt-4">
+                Désolé, il n'y a pas de Catégorie correspondant à <small
+                    class="badge badge-info">{{category.name}}</small>
+            </h3>
+        </div>
+        {% endfor %}
     </div>
 
-    <!-- On affiche un message à l'utilisateur s'il entre une Catégorie qui n'existe pas -->
-    {% empty %}
-    <div class="text-center">
-        <p class="display-1"> :-(</p>
-        <h3 class="mt-4">
-            Désolé, il n'y a pas de Catégorie correspondant à <small class="badge badge-info">{{category.name}}</small>
-        </h3>
-    </div>
-    {% endfor %}
-</div>
-
-<!-- Affiche les Catégories de Posts qui existent en Bases De Données -->
-<div class="col-sm-3">
-    <h5>Categories</h5>
-    <ul class="list-unstyled">
-        {% for cat in categories %}
+    <!-- Affiche les Catégories de Posts qui existent en Bases De Données -->
+    <div class="col-sm-3 mt-2">
+        <h5>Categories</h5>
+        <ul class="list-unstyled">
+            {% for cat in categories %}
             <li>
                 <a href="{% url 'post-list' cat.slug %}" class="badge badge-secondary">{{cat.name|capfirst}}</a>
             </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
