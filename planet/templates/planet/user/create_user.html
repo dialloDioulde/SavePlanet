@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-9 mt-5">
+        <div class="card mt-2 mb-3">
+            <div class="card-body">
+                 <h5>CRÉATION DE COMPTE</h5>
+            </div>
+        </div>
+        <form action="{% url 'create-user' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form user_form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-success">JE M'INSCRIS</button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
