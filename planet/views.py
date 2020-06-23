@@ -48,6 +48,7 @@ def post_detail(request, post_id, message = ''):
     if request.method == 'POST' :
         if comment_form.is_valid():
             comment = comment_form.save(commit= False)
+            comment.user = request.user
             comment.post = post
             comment.save()
 
@@ -68,7 +69,9 @@ def create_post(request):
     post_form = CreatePostForm(request.POST or None)
     if request.method == 'POST':
         if post_form.is_valid():
-            post_form.save()
+            post = post_form.save(commit = False)
+            post.user = request.user
+            post.save()
             return redirect('view-post')
             # args = [post.pk, ' Votre Commentaire a bien été Publié ! ']
             # return HttpResponseRedirect(reverse('post-detail-message', args=args) + '#comments')
@@ -136,6 +139,7 @@ def logout_user(request):
 
 
 # Profil de l'Utilisateur
+@login_required
 def profil_user(request):
     context = {'navigation_items': navigation.navigation_items(navigation.NAV_PROFIL_USER), 'user' : request.user}
     return render(request, "planet/user/profil_user.html", context)
@@ -158,6 +162,7 @@ def edit_user(request):
 
 
 
+# La Modification du Mot de l'Utilisateur
 @login_required
 def change_password(request):
     if request.method == "POST":
@@ -178,7 +183,7 @@ def change_password(request):
         return render(request, "planet/user/change_password.html", context)
 
 
-
+# La Suppression du compte de l'Utilisateur
 @login_required
 def delete_user(request):
     user = User.objects.get(id= request.user.pk)

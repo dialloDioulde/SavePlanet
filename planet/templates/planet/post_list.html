@@ -11,7 +11,7 @@
                 <div class="">
                     <!-- On affiche le Post dans son intégralité (details) en cliquant sur son titre -->
                     <h3><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a></h3>
-                    <small>Posté le {{post.created_at}}</small>
+                    <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username}}</strong>
                     <hr>
 
                     <p class="text-muted">

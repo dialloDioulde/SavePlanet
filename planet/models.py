@@ -1,7 +1,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-
+from django.conf import settings
 # Create your models here.
+
+
 
 # Catégorie des Posts
 class PostCategory(models.Model):
@@ -14,8 +16,10 @@ class PostCategory(models.Model):
         return slugify(self.name)
 
 
+User = settings.AUTH_USER_MODEL
 # Posts
 class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     category = models.ForeignKey('PostCategory', null=True, blank=True, on_delete=models.DO_NOTHING)
     published = models.BooleanField(default=False)
@@ -34,6 +38,7 @@ class Comment(models.Model):
 
     STATUS_CHOICES = ((STATUS_VISIBLE, 'visible'), (STATUS_HIDDEN, 'hidden'), (STATUS_MODERATED, 'moderated'),)
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
     author_name = models.CharField(max_length=250)
     text = models.TextField()
