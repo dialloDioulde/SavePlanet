@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'planet.apps.PlanetConfig',
     'bootstrap4',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

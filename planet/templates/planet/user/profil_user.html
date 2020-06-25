@@ -23,17 +23,17 @@
                 </div>
                 <br>
                 <div class="d-flex ml-2">
-                    <a href="{% url 'edit-user' %}" class="btn btn-warning"> ÉDITER MON PROFIL</a> <br><br>
-                    <a href="{% url 'change-password' %}" class="btn btn-success ml-2"> CHANGER MON MOT DE PASSE</a>
+                    <a href="{% url 'edit-user' %}" class="btn btn-warning"> MAJ MON PROFIL</a> <br><br>
+                    <a href="{% url 'change-password' %}" class="btn btn-success ml-2"> MAJ MON MOT DE PASSE</a>
                     <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#deleteAccount"> SUPPRIMER MON COMPTE</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Debut du Modal de Suppression de Compte -->
     <div class="container">
         <div class="modal fade" id="deleteAccount" tabindex="-1">
-            <!--<div class="modal-dialog">-->
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -53,6 +53,7 @@
             </div>
         </div>
     </div>
+    <!-- Fin du Modal de Suppression de Post -->
 
 </div>
 

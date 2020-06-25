@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-9 mt-5">
+        <h5>Éditer Votre Post</h5><br>
+        <form action="{% url 'edit-post' post.pk %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form edit_post_form %}
+            <button type="submit" class="btn btn-warning">METTRE À JOUR</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

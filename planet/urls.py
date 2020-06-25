@@ -9,8 +9,11 @@ urlpatterns = [
     path('posts/detail/<int:post_id>/',views.post_detail, name='post-detail'),
     path('posts/detail/<int:post_id>/<str:message>/',views.post_detail, name='post-detail-message'),
 
-    #path('posts/createPost/',views.create_post, name='create-post'),
+
     path('createPost/', views.create_post, name='create-post'),
+    path('editPost/<int:post_id>/', views.edit_post, name='edit-post'),
+    path('deletePost/<int:post_id>/', views.delete_post, name='delete-post'),
+
 
     path('createUser/', views.create_user, name='create-user'),
     path('loginUser/', views.login_user, name='login-user'),
@@ -19,4 +22,5 @@ urlpatterns = [
     path('editUser/', views.edit_user, name='edit-user'),
     path('password/', views.change_password, name='change-password'),
     path('deleteUser/', views.delete_user, name='delete-user'),
+
 ]

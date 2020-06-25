@@ -19,6 +19,14 @@ class CreatePostForm(forms.ModelForm):
         fields = ['title', 'category', 'text' ]
 
 
+# Édition d'un Post
+class EditPostForm(forms.ModelForm):
+    class Meta :
+        model = Post
+        fields = ['title', 'category', 'text' ]
+
+
+
 # Inscription d'un Utilisateur
 class CreateUserForm(UserCreationForm):
     email = forms.EmailField(required=True)

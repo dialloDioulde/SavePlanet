@@ -15,11 +15,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mr-auto">
-                {% for item in navigation_items %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{item.url}}">{{item.name}}</a>
-                </li>
-                {% endfor %}
+
+                <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">HOME</a></li>
+                 <li class="nav-item active"><a class="nav-link" href="{% url 'view-post' %}">POSTS</a></li>
+                 <li class="nav-item active"><a class="nav-link" href="#">HOME</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right mr-5">
                 {% if user.is_authenticated %}
@@ -33,9 +33,8 @@
                     </div>
                 </li>
                 {% else %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'login-user' %}">CONNEXION</a>
-                </li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'create-user' %}"> S'INSCRIRE</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{% url 'login-user' %}">CONNEXION</a></li>
                 {% endif %}
             </ul>
         </div>
