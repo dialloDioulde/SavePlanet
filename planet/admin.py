@@ -45,7 +45,7 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ['post__title', 'author_name']
 
     # Les colonnes de la table Post à afficher
-    list_display = ['post', 'author_name', 'text', 'status', 'moderation_text', 'created_at']
+    list_display = ['post', 'user', 'text', 'status', 'moderation_text', 'created_at']
 
     # Les Champs qui seront éditables dans l'admin
     list_editable = [ 'status', 'moderation_text',]

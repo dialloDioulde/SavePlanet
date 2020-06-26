@@ -110,6 +110,9 @@ def delete_post(request, post_id):
 
 
 
+
+
+
 # Inscription d'un Utilisateur
 @csrf_protect
 def create_user(request):

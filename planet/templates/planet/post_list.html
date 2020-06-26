@@ -11,22 +11,27 @@
                 <div class="">
                     <!-- On affiche le Post dans son intégralité (details) en cliquant sur son titre -->
                     <h3><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a></h3>
-                    <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username}}</strong>
+                    <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username |upper}}</strong>
                     <hr>
-
-                    <p class="text-muted">
-                        <!-- On affiche le Post dans son intégralité (details) en cliquant sur Lire Plus si le nombre de mots depasse 100 -->
-                        {{post.text|linebreaks|safe|truncatewords:100}}
-                        <a href="{% url 'post-detail' post.pk %}">[Lire Plus]</a>
-                    </p>
-
+                    {% if post.text|wordcount > 100 %}
+                        <p class="text-muted">
+                            <!-- On affiche le Post dans son intégralité (details) en cliquant sur Lire Plus si le nombre de mots depasse 100 -->
+                            {{post.text|linebreaks|safe|truncatewords:100}}
+                            <a href="{% url 'post-detail' post.pk %}">[Lire Plus]</a>
+                        </p>
+                    {% else %}
+                        <p class="text-muted">
+                            <!-- On affiche le Post dans son intégralité (details) en cliquant sur Lire Plus si le nombre de mots depasse 100 -->
+                            {{post.text|linebreaks|safe}}
+                        </p>
+                    {% endif %}
                     <!-- On affiche uniquement que les Posts correspondant à la Catégorie choisie -->
                     <a href="{% url 'post-list' post.category.slug %}" class="badge badge-info">
                         {{post.category.name|capfirst}}</a>
                     {% if user.is_authenticated %}
                         {% if post.user == request.user %}
                             <a href="{% url 'edit-post' post.pk %}" class="badge badge-warning text-white ml-4">MAJ</a>
-                            <a class="badge badge-danger text-white ml-4" data-toggle="modal" data-target="#deletePost">RETIRER</a>
+                            <a href="#" class="badge badge-danger text-white ml-4" data-toggle="modal" data-target="#deletePost">RETIRER</a>
                         {% endif %}
                     {% endif %}
 

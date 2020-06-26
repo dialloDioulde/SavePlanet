@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class CreateCommentForm(forms.ModelForm):
     class Meta :
         model = Comment
-        fields = ['author_name', 'text', ]
+        fields = ['text', ]
 
 
 # Création d'un Post

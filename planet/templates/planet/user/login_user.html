@@ -7,17 +7,20 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6 mt-5">
         <div class="card mt-3">
             <div class="card-body">
-                <h5 class="">CONNEXION</h5><br>
+                <h5 class="text-center"><strong>CONNEXION</strong></h5><br>
                 <form action="{% url 'login-user' %}" method="post" class="form">
                     {% csrf_token %}
                     {% bootstrap_form login_form %}
                     {% buttons %}
-                    <button type="submit" class="btn btn-success">CONNEXION</button>
-                    {% endbuttons %}
+                    <div class="d-inline block">
+                        <button type="submit" class="btn btn-success">CONNEXION</button>
+                        {% endbuttons %}
+                        <a href="#" class="ml-2">Mot De Passe Oublier ? Cliquer ICI </a>
+                    </div>
                 </form>
             </div>
         </div>

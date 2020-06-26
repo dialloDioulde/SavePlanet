@@ -9,7 +9,7 @@
     <div class="col-md-9">
         <div class="mt-3">
             <h2>{{post.title}}</h2>
-            <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username}}</strong>
+            <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username |upper}}</strong>
             <hr>
             <p class="text-muted">
                 {{post.text|linebreaks|safe}}
@@ -19,7 +19,7 @@
             {% if user.is_authenticated %}
             {% if post.user == request.user %}
             <a href="{% url 'edit-post' post.pk %}" class="badge badge-warning text-white ml-4">MAJ</a>
-            <a class="badge badge-danger text-white ml-4" data-toggle="modal" data-target="#deletePost">RETIRER</a>
+            <a href="#" class="badge badge-danger text-white ml-4" data-toggle="modal" data-target="#deletePost">RETIRER</a>
             {% endif %}
             {% endif %}
         </div>
@@ -50,7 +50,7 @@
 
 
         <div class="mt-3" id="comments">
-            <h3>Commentaires</h3>
+            <h3 class="mb-2">Commentaires</h3>
 
             <!-- Confirmation de l'envoie d'un Commentaire à l'Utilisateur -->
             {% if message %}
@@ -67,7 +67,7 @@
                 <li class="media">
                     <img class="mr-3" src="{% static 'img/diallo.png' %}" width="100">
                     <div class="media-body">
-                        <h5 class="mt-0 mb-1">{{comment.author_name}}</h5>
+                        <h5 class="mt-0 mb-1">{{comment.user.username}}</h5>
                         <p>
                             <small class="text-muted">{{comment.created_at}}</small>
                         </p>
@@ -91,7 +91,7 @@
                 {% csrf_token %}
                 {% bootstrap_form comment_form %}
                 {% buttons %}
-                <button type="submit" class="btn btn-primary">Commentez</button>
+                <button type="submit" class="btn btn-success">Commentez</button>
                 {% endbuttons %}
             </form>
 

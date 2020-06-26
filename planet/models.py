@@ -40,7 +40,7 @@ class Comment(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
-    author_name = models.CharField(max_length=250)
+    #author_name = models.CharField(max_length=250)
     text = models.TextField()
     status = models.CharField(max_length=20, default=STATUS_VISIBLE, choices=STATUS_CHOICES)
 
@@ -48,5 +48,5 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{} - {} (status = {})'.format(self.author_name, self.text[:20], self.status)
+        return '{} - {} (status = {})'.format(self.user, self.text[:20], self.status)
 
