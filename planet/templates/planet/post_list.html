@@ -77,13 +77,13 @@
     </div>
 
     <!-- Affiche les Catégories de Posts qui existent en Bases De Données -->
-    <div class="col-sm-3 mt-3">
-        <a href="{% url 'create-post' %}" class="badge badge-success"> Créer Un Post</a><br><br>
+    <div class="col-sm-3 mt-3 border">
+        <a href="{% url 'create-post' %}" class="badge badge-success mt-2"> Créer Un Post</a><br><br>
         <h5>Catégories :</h5>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled border bg-info">
             {% for cat in categories %}
-            <li>
-                <a href="{% url 'post-list' cat.slug %}" class="badge badge-secondary mb-2">{{cat.name|capfirst}}</a>
+            <li class="pl-2">
+                <a href="{% url 'post-list' cat.slug %}" class="badge badge-dark mb-2 ">{{cat.name|capfirst}}</a>
             </li>
             {% endfor %}
         </ul>

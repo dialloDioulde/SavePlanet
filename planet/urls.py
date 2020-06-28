@@ -14,6 +14,9 @@ urlpatterns = [
     path('editPost/<int:post_id>/', views.edit_post, name='edit-post'),
     path('deletePost/<int:post_id>/', views.delete_post, name='delete-post'),
 
+    path('editComment/<int:comment_id>/', views.edit_comment, name='edit-comment'),
+    path('delete-comment/<int:comment_id>/', views.delete_comment, name='delete-comment'),
+
 
     path('createUser/', views.create_user, name='create-user'),
     path('loginUser/', views.login_user, name='login-user'),

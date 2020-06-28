@@ -5,13 +5,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 
 
-# Création d'un Commentaire
-class CreateCommentForm(forms.ModelForm):
-    class Meta :
-        model = Comment
-        fields = ['text', ]
-
-
 # Création d'un Post
 class CreatePostForm(forms.ModelForm):
     class Meta :
@@ -24,6 +17,20 @@ class EditPostForm(forms.ModelForm):
     class Meta :
         model = Post
         fields = ['title', 'category', 'text' ]
+
+
+# Création d'un Commentaire
+class CreateCommentForm(forms.ModelForm):
+    class Meta :
+        model = Comment
+        fields = ['text', ]
+
+
+# Création d'un Commentaire
+class EditCommentForm(forms.ModelForm):
+    class Meta :
+        model = Comment
+        fields = ['text', ]
 
 
 

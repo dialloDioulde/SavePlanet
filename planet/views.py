@@ -6,7 +6,7 @@ from django.views.generic import UpdateView
 
 from planet.models import *
 from planet import model_helpers, navigation
-from planet.forms import CreateCommentForm, CreatePostForm, EditPostForm, CreateUserForm, EditUserForm
+from planet.forms import CreateCommentForm, CreatePostForm, EditPostForm, CreateUserForm, EditUserForm, EditCommentForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
@@ -39,6 +39,7 @@ def post_detail(request, post_id, message=''):
 
     # On récupère que les Posts d'une même Catégorie ici
     posts_same_category = Post.objects.filter(published=True, category=post.category).exclude(pk=post_id)
+    # .replace('-', ' ')
 
     # On récupère les Commentaires liés au Post en question
     posts_comments = post.comments.exclude(status=Comment.STATUS_HIDDEN).order_by('created_at')
@@ -64,6 +65,30 @@ def post_detail(request, post_id, message=''):
     return render(request, 'planet/post_detail.html', context)
 
 
+# Edition de Commentaire
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk= comment_id)
+    if request.method == "POST":
+        edit_comment_form = EditCommentForm(request.POST,instance= comment)
+        if edit_comment_form.is_valid():
+            edit_comment_form.save()
+            return redirect('view-post')
+    else:
+        edit_comment_form = EditCommentForm(instance = comment)
+
+    return render(request, 'planet/comments/edit_comment.html', {'edit_comment_form': edit_comment_form, 'comment': comment})
+
+
+# Suppression de Commentaire
+def delete_comment(request, comment_id):
+    comment = Comment.objects.get(id = comment_id)
+    comment.delete()
+    return redirect('view-post')
+
+
+
+
 # Création de Post
 @login_required
 def create_post(request):
@@ -79,13 +104,12 @@ def create_post(request):
         else:
             post_form = CreatePostForm()
 
-    # context = {'post_form': post_form}
     context = {'post_form': post_form}
 
     return render(request, 'planet/create_post.html', context)
 
 
-# Edition de Post
+# Edition d'un Post
 @login_required
 def edit_post(request, post_id):
     post = get_object_or_404(Post, pk= post_id)
@@ -106,10 +130,6 @@ def delete_post(request, post_id):
     post = Post.objects.get(id = post_id)
     post.delete()
     return redirect('view-post')
-
-
-
-
 
 
 

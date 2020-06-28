@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-5">
+        <form action="{% url 'edit-comment' comment.pk %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form edit_comment_form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-warning">MAJ</button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -14,7 +14,7 @@ def get_category_and_posts(category_name):
     else:
         try:
             # On récupère que les Posts dont le nom est égale à category_name
-            category = PostCategory.objects.get(name__iexact = category_name) # On ne tient pas compte de la Casse
+            category = PostCategory.objects.get(name__iexact = category_name.replace('-', ' ')) # On ne tient pas compte de la Casse
             posts = posts.filter(category = category)
         except PostCategory.DoesNotExist :
             # Si la catégorie de Posts n'existe pas
