@@ -5,24 +5,40 @@
 {% block title %} {{post.title}} {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-9">
+<div class="row container">
+    <div class="col-md-10 border-right border-left border-bottom">
         <div class="mt-3">
-            <h2>{{post.title}}</h2>
-            <small>Posté le {{post.created_at}} par </small> <strong>{{post.user.username |upper}}</strong>
-            <hr>
-            <p class="text-muted">
-                {{post.text|linebreaks|safe}}
-            </p>
-            <a href="{% url 'post-list' post.category.slug %}"
-               class="badge badge-info">{{post.category.name|capfirst}}</a>
-            {% if user.is_authenticated %}
-            {% if post.user == request.user %}
-            <a href="{% url 'edit-post' post.pk %}" class="badge badge-warning text-white ml-4">MAJ</a>
-            <a href="#" class="badge badge-danger text-white ml-4" data-toggle="modal"
-               data-target="#deletePost">RETIRER</a>
-            {% endif %}
-            {% endif %}
+
+            <ul class="list-unstyled">
+                <li class="media mt-4 bg-light">
+                    <img class="mr-3 mt-2 ml-2" src="{% static 'img/diallo.png' %}" width="100">
+                    <div class="media-body pl-2 pr-2 pb-2 pt-2 mb-2 mr-2 mt-2">
+                        <h5 class="mt-0 mb-1">{{post.user.username |upper}}</h5>
+                        <p>
+                            <!-- <small class="text-muted">{{post.created_at}}</small> -->
+                            <strong>{{post.created_at}}</strong>
+                        </p>
+
+                        <div class="bg-white pl-2 pr-2 pb-2 pt-2 mb-2 mr-2 mt-2">
+                            <h2 class="mt-2">{{post.title}}</h2>
+                            <p class="text-muted">
+                                {{post.text|linebreaks|safe}}
+                            </p>
+                        </div>
+
+                        <a href="{% url 'post-list' post.category.slug %}"
+                           class="badge badge-info">{{post.category.name|capfirst}}</a>
+                        {% if user.is_authenticated %}
+                        {% if post.user == request.user %}
+                        <a href="{% url 'edit-post' post.pk %}" class="badge badge-warning text-white ml-4">MAJ</a>
+                        <a href="#" class="badge badge-danger text-white ml-4" data-toggle="modal"
+                           data-target="#deletePost">RETIRER</a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+
         </div>
 
 
@@ -51,7 +67,7 @@
         <!-- Fin du Modal du Suppression de Post -->
 
 
-        <div class="mt-3" id="comments">
+        <div class="mt-3 bg-light pl-3 pr-3 ml-5" id="comments">
             <h3 class="mb-2">Commentaires</h3>
 
             <!-- Confirmation de l'envoie d'un Commentaire à l'Utilisateur -->
@@ -69,11 +85,12 @@
                 <li class="media mt-5">
                     <img class="mr-3" src="{% static 'img/diallo.png' %}" width="100">
                     <div class="media-body">
-                        <h5 class="mt-0 mb-1">{{comment.user.username}}</h5>
+                        <h5 class="mt-0 mb-1">{{comment.user.username|upper}}</h5>
                         <p>
-                            <small class="text-muted">{{comment.created_at}}</small>
+                            <strong>{{comment.created_at}}</strong>
+                            <!-- <small class="text-muted">{{comment.created_at}}</small> -->
                         </p>
-                        <div>
+                        <div class="bg-white pl-2 pt-2 pr-2 pb-2">
                             {% if comment.status == 'moderated' %}
                             <span class="font-weight-light font-italic text-muted">
                             [[ Commentaire Modéré : {{ comment.moderation_text }} ]]
@@ -110,7 +127,8 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Êtes vous sûre de vouloir SUPPRIMER votre Commentaire ? Cette action est Irreversible !
+                                            Êtes vous sûre de vouloir SUPPRIMER votre Commentaire ? Cette action est
+                                            Irreversible !
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -144,15 +162,15 @@
 
     </div>
 
-    <div class="col-md-3 mt-3">
-        <h5>Posts de même Catégories: </h5>
+    <div class="col-md-2 mt-3 border-right border-bottom bg-light">
+        <h5 class="mt-5">Posts de même Catégories: </h5>
         <ul class="list-group list-unstyled">
             {% for post in posts_same_category %}
+            {% if post %}
             <li class="list-group-itm">
                 <a href="{% url 'post-detail' post.pk %}"> {{post.title|truncatewords:4}}</a>
             </li>
-            {% empty %}
-            C'est le seul Post de la Catégorie {{post.title}} actuellement.
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
